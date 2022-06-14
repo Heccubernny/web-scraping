@@ -36,25 +36,17 @@ res = requests.get(url=url, headers=headers)
 #Now we are going to use beautiful soup
 soup = BeautifulSoup(res.text, 'html.parser')
 
-index = 0
-for img in soup.findAll('img'):
-    index += 1
+for index, img in enumerate(soup.findAll('img'), start=1):
     #To fetch all the images sources code on the website type print(img)
     img_t = img.get('src')
     #To fetch for the link for the images type print(img_t)
-    if img_t[:1] == '/':
-        img_path = url + img_t
-    else:
-        img_path = img_t
-        
+    img_path = url + img_t if img_t[:1] == '/' else img_t
     print(img_path)
 
     if '.png' in img_path:
-        with open("{}.png".format(index), 'wb') as saveImg:
-          saveImg.write(requests.get(url = img_path).content)  
+        with open(f"{index}.png", 'wb') as saveImg:
+            saveImg.write(requests.get(url = img_path).content)
         print(img_path)
-    else:
-        pass
 
 
     #Later on i will work on where to save the images AND also saving all the images in a txt file
