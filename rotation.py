@@ -4,8 +4,8 @@ import requests
 # Generate the pools
 def create_pools():
     proxies = proxies_pool()
-    headers = [random_header() for ind in range(len(proxies))] # list of headers, same length as the proxies list
-    
+    headers = [random_header() for _ in range(len(proxies))]
+
     # This transforms the list into itertools.cycle object (an iterator) that we can run 
     # through using the next() function in lines 16-17.
     proxies_pool = cycle(proxies)

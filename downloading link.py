@@ -15,7 +15,6 @@ res = requests.get(link)
 res.raise_for_status()
 save = input("Enter the name you wish to save the file --> ")
 fort = input("Enter the format you want to save it as --> ")
-saveFile = open(save+'.'+fort, 'wb')
-for start in res.iter_content(10000000):
-    saveFile.write(start)
-saveFile.close()
+with open(f'{save}.{fort}', 'wb') as saveFile:
+    for start in res.iter_content(10000000):
+        saveFile.write(start)
